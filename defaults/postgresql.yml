@@ -17,7 +17,7 @@ postgresql_extensions:
 
 # Replication host configuration
 postgresql_master_ip: 10.0.0.1
-postgresql_slave_ips:
+postgresql_standby_ips:
  - 10.0.0.2
  - 10.0.0.3
 
