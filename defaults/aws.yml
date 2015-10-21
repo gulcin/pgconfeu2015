@@ -8,8 +8,9 @@ ec2_ami_id: ami-9a380b87 # Ubuntu Server 14.04 LTS HVM
 ec2_instance_type: m3.medium
 
 # EC2 SSH key & key name
-ec2_key: ~/.ssh/id_rsa.pub
-ec2_key_name: postgresql-key
+ec2_ssh_user: ubuntu
+ec2_ssh_key: ~/.ssh/id_rsa.pub
+ec2_ssh_key_name: postgresql-key
 
 # Volume sizes (GB)
 ec2_system_volume_size: 8
