@@ -1,0 +1,26 @@
+# Which version of PostgreSQL will be installed?
+# Supported versions are: 9.2, 9.3, 9.4
+postgresql_version: 9.4
+
+# Extra system packages to install.
+# Can be anything the system (Debian or Ubuntu) supports
+extra_packages:
+ - 
+
+# Support the contrib package?
+postgresql_contrib: yes
+
+# Extensions to enable
+postgresql_extensions:
+ - pg_stat_statements
+ - hstore
+
+# Replication host configuration
+postgresql_master_ip: 10.0.0.1
+postgresql_slave_ips:
+ - 10.0.0.2
+ - 10.0.0.3
+
+# Optionally install and configure PGBouncer at the master server
+install_pgbouncer: no
+
