@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: Ensure all virtual machines are ready
+  hosts: all
   sudo: yes
   sudo_user: root
   vars_files: # load default variables from YAML files below
@@ -8,7 +9,8 @@
   gather_facts: no
   tasks:
 
-- hosts: master
+- name: Ensure the master PostgreSQL server is ready
+  hosts: master
   sudo: yes
   sudo_user: root
   vars_files:
@@ -17,7 +19,8 @@
   gather_facts: no
   tasks: 
 
-- hosts: standbys
+- name: Ensure all standby servers are ready
+  hosts: standbys
   sudo: yes
   sudo_user: root
   vars_files:
