@@ -1,0 +1,12 @@
+# TODO: Ensure PostgreSQL users are present
+
+# TODO: Ensure replication role is present
+
+# TODO: Ensure the database is present
+
+# TODO: Ensure roles are associated with the database
+
+# TODO: Ensure the database dump file is imported
+
+# TODO: Ensure streaming replication configuration is ready
+
