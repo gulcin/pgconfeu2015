@@ -1,14 +1,24 @@
 ---
 - name: Ensure all virtual machines are ready
-  hosts: all
-  sudo: yes
-  sudo_user: root
+  hosts: 127.0.0.1
+  connection: local
   vars_files: # load default variables from YAML files below
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: no
+  gather_facts: no # temporary
   tasks:
     - include: 'tasks/infrastructure.yml'
+
+- name: Ensure all required PostgreSQL dependencies ready
+  hosts: all
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - 'defaults/postgresql.yml'
+    - 'defaults/aws.yml'
+  gather_facts: no # temporary
+  tasks:
+    - include: 'tasks/postgresql.yml'
 
 - name: Ensure the master PostgreSQL server is ready
   hosts: master
@@ -17,7 +27,7 @@
   vars_files:
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: no
+  gather_facts: no # temporary
   tasks: 
     - include: 'tasks/master.yml'
 
@@ -28,7 +38,7 @@
   vars_files:
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: no
+  gather_facts: no # temporary
   tasks:
     - include: 'tasks/standby.yml'
 
