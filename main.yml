@@ -8,6 +8,7 @@
     - 'defaults/aws.yml'
   gather_facts: no
   tasks:
+    - include: 'tasks/infrastructure.yml'
 
 - name: Ensure the master PostgreSQL server is ready
   hosts: master
@@ -18,6 +19,7 @@
     - 'defaults/aws.yml'
   gather_facts: no
   tasks: 
+    - include: 'tasks/master.yml'
 
 - name: Ensure all standby servers are ready
   hosts: standbys
@@ -28,4 +30,5 @@
     - 'defaults/aws.yml'
   gather_facts: no
   tasks:
+    - include: 'tasks/standby.yml'
 
