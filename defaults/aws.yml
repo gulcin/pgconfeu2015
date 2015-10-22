@@ -6,9 +6,10 @@ ec2_subnet: 10.0.0.0/20
 
 # EC2 AMI image to install on all servers
 ec2_ami_id: ami-9a380b87 # Ubuntu Server 14.04 LTS HVM
+ec2_os_version: trusty # Ubuntu Server 14.04 LTS
 
 # EC2 instance type
-ec2_instance_type: m3.medium
+ec2_instance_type: t2.micro
 
 # EC2 SSH key & key name
 ec2_ssh_user: ubuntu
