@@ -20,5 +20,10 @@ postgresql_standby_ips:
 postgresql_database_name: vienna
 
 # Name of the replication user
-postgresql_role_name: replicator
+postgresql_replication_user: replicator
+postgresql_replication_password: pgconfeu2015
+
+# Other database users
+postgresql_users:
+ - { name: gulcin, password: "apathetic", roles: "SUPERUSER,LOGIN" }
 
