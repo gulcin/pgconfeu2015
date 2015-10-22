@@ -1,0 +1,16 @@
+# TODO: Ensure VPC is present
+
+# TODO: Ensure EC2 instances & volumes are present
+
+# TODO: Ensure the PostgreSQL data volume is mounted
+
+# TODO: Ensure PostgreSQL is present
+
+# TODO: Ensure PostgreSQL contrib package is present, if required
+
+# TODO: Ensure PostgreSQL extensions are present
+
+# TODO: Ensure PostgreSQL configuration is as requested
+
+# TODO: Ensure the PostgreSQL service is started
+
