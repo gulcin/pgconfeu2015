@@ -1,0 +1,10 @@
+# TODO: Ensure the .pgpass file exists
+
+# TODO: Ensure the .pgpass has the right permissions
+
+# TODO: Ensure the pg_hba.conf file is configured
+
+# TODO: Ensure the recovery.conf file is configured
+
+# TODO: If the standby server was configured for the first time, ensure the PostreSQL service is restarted
+
