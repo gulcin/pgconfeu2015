@@ -1,0 +1,33 @@
+
+# TODO: Format the data volume, if necessary
+
+- name: Ensure the data folder is present
+  file: path=/var/lib/postgresql/{{ postgresql_version }}/data state=present
+
+- name: Ensure the PostgreSQL data volume is mounted
+  mount: src=/dev/xvdc1 name=/var/lib/postgresql/{{ postgresql_version }}/data state=present
+
+- name: Ensure the official PostgreSQL APT repository is present
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ ec2_os_version }}-pgdg main' state=present
+
+- name: Ensure the repository signing key is present
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc state=present
+
+- name: Update the package list # apt-get update
+  apt: update_cache=yes
+
+- name: Ensure PostgreSQL is present
+  apt: name=postgresql-{{ postgresql_version }} state=latest
+
+- name: Ensure the psycopg2 package is present (this will be required for Ansible PostgreSQL modules)
+  apt: name=python-psycopg2 state=latest
+
+- name: Ensure PostgreSQL contrib package is present, if requested
+  apt: name=postgresql-{{ postgresql_version }}-contrib state=latest 
+  when: postgresql_contrib # because when expects variables 
+
+# TODO: Ensure PostgreSQL configuration is as requested
+
+- name: Ensure the PostgreSQL service is running
+  service: name=postgresql state=started  
+
