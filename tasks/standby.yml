@@ -8,3 +8,4 @@
 
 # TODO: If the standby server was configured for the first time, ensure the PostreSQL service is restarted
 
+# TODO: Verify streaming replication works as exptected: wal_file_location, replication func, write-read test
