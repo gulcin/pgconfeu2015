@@ -2,11 +2,6 @@
 # Supported versions are: 9.2, 9.3, 9.4
 postgresql_version: 9.4
 
-# Extra system packages to install.
-# Can be anything the system (Debian or Ubuntu) supports
-extra_packages:
- - 
-
 # Support the contrib package?
 postgresql_contrib: yes
 
@@ -21,6 +16,9 @@ postgresql_standby_ips:
  - 10.0.0.2
  - 10.0.0.3
 
-# Optionally install and configure PGBouncer at the master server
-install_pgbouncer: no
+# Name of the database
+postgresql_database_name: vienna
+
+# Name of the replication user
+postgresql_role_name: replicator
 
