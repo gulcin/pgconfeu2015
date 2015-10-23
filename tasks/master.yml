@@ -1,3 +1,4 @@
+
 - name: Ensure PostgreSQL users are present
   postgresql_user:
     state: present
@@ -13,9 +14,18 @@
     password: {{ postgresql_replication_user.password }}
     role_attr_flags: {{ postgresql_replication_user.roles }}
 
-# TODO: Ensure streaming replication configuration is ready
+- name: Ensure streaming replication configuration is ready
+  template:
+    src: pg_hba.conf.j2
+    dest: '/etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf'
+    owner: postgres
+    group: postgres
+    mode: 0640
 
-# TODO: Ensure the database is present
+- name: Ensure the database is present
+  postgresql_db:
+    state: present
+    name: {{ postgresql_database_name }}
 
 - name: Ensure PostgreSQL extensions are present
   postgresql_ext:
@@ -24,7 +34,15 @@
     db: {{ bişi }}
   with_items: postgresql_extensions
 
-# TODO: Ensure roles are associated with the database
+- name: Ensure roles are associated with the database
+  postgresql_privs:
+    state: present
+    db: {{ postgresql_database_name }}
+    privs: ALL
+    type: schema
+    objs: public
+    role: {{ item.name }}
+  with_items: postgresql_users
 
 # TODO: Ensure the database dump file is imported
 
