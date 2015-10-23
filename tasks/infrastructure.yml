@@ -1,3 +1,10 @@
+- name: Ensure the SSH key is present
+  ec2_key:
+    state: present
+    region: "{{ ec2_region }}"
+    name: "{{ ec2_ssh_key_name }}"
+    key_material: "{{ item }}"
+  with_file: "{{ ec2_ssh_key }}"
 
 - name: Ensure VPC is present
   ec2_vpc:
