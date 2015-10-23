@@ -44,11 +44,11 @@
 
 - name: Ensure master EC2 instances & volumes are present
   ec2:
-    state: present
     assign_public_ip: yes # our machines should access internet
-    instance_tags: { role: "master", environment: "production" }
-    count_tag: { role: "master"}
+    instance_tags: { Name: "pg-master {{ postgresql_master_ip }}", environment: "production" }
     exact_count: 1
+    count_tag:
+      Name: "pg-master {{ postgresql_master_ip }}"
     image: "{{ ec2_ami_id }}"
     instance_type: "{{ ec2_instance_type }}"
     group_id: "{{ security_group.group_id }}"
@@ -70,10 +70,8 @@
 
 - name: Ensure standby EC2 instances & volumes are present
   ec2:
-    state: present
     assign_public_ip: yes # our machines should access internet
-    instance_tags: { role: "standby", environment: "production" }
-    count_tag: { role: "standby"}
+    instance_tags: { Name: "pg-standby {{ item }}", environment: "production" }
     exact_count: 1
     image: "{{ ec2_ami_id }}"
     instance_type: "{{ ec2_instance_type }}"
