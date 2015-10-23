@@ -11,10 +11,10 @@ postgresql_extensions:
  - hstore
 
 # Replication host configuration
-postgresql_master_ip: 10.0.0.1
+postgresql_master_ip: 10.0.0.5
 postgresql_standby_ips:
- - 10.0.0.2
- - 10.0.0.3
+ - 10.0.0.10
+ - 10.0.0.11
 
 # Name of the database
 postgresql_database_name: vienna
