@@ -20,10 +20,20 @@ postgresql_standby_ips:
 postgresql_database_name: vienna
 
 # Name of the replication user
-postgresql_replication_user: replicator
-postgresql_replication_password: pgconfeu2015
+postgresql_replication_user:
+  name: replicator
+  password: pgconfeu2015
+  roles: "REPLICATION"
 
 # Other database users
 postgresql_users:
  - { name: gulcin, password: "apathetic", roles: "SUPERUSER,LOGIN" }
+
+# PostgreSQL replication configuration
+postgresql_conf_statements:
+ - { find: "^#?listen_addresses = .*$", replace: "listen_addresses = '*'" }
+ - { find: "^#?wal_level = .*$", replace: "wal_level = {{'hot_standby'}}" }
+ - { find: "^#?max_wal_senders = .*$", replace: "max_wal_senders = {{ 3 }}" }
+ - { find: "^#?wal_keep_segments = .*$", replace: "wal_keep_segments = {{ 256 }}" }
+ - { find: "^#?hot_standby = .*$", replace: "hot_standby = {{ 'on' }}" }
 
