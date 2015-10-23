@@ -2,17 +2,17 @@
 - name: Ensure PostgreSQL users are present
   postgresql_user:
     state: present
-    name: {{ item.name }}
-    password: {{ item.password }}
-    role_attr_flags: {{ item.roles }}
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    role_attr_flags: "{{ item.roles }}"
   with_items: postgresql_users
 
 - name: Ensure replication role is present
   postgresql_user:
     state: present
-    name: {{ postgresql_replication_user.name }}
-    password: {{ postgresql_replication_user.password }}
-    role_attr_flags: {{ postgresql_replication_user.roles }}
+    name: "{{ postgresql_replication_user.name }}"
+    password: "{{ postgresql_replication_user.password }}"
+    role_attr_flags: "{{ postgresql_replication_user.roles }}"
 
 - name: Ensure streaming replication configuration is ready
   template:
@@ -26,23 +26,23 @@
 - name: Ensure the database is present
   postgresql_db:
     state: present
-    name: {{ postgresql_database_name }}
+    name: "{{ postgresql_database_name }}"
 
 - name: Ensure PostgreSQL extensions are present
   postgresql_ext:
     state: present
-    name: {{ item }}
-    db: {{ bişi }}
+    name: "{{ item }}"
+    db: "{{ postgresql_database }}"
   with_items: postgresql_extensions
 
 - name: Ensure roles are associated with the database
   postgresql_privs:
     state: present
-    db: {{ postgresql_database_name }}
+    db: "{{ postgresql_database_name }}"
     privs: ALL
     type: schema
     objs: public
-    role: {{ item.name }}
+    role: "{{ item.name }}"
   with_items: postgresql_users
 
 - name: Restart PostgreSQL if necessary

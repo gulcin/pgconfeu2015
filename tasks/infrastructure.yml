@@ -2,13 +2,13 @@
 - name: Ensure VPC is present
   ec2_vpc:
     state: present
-    region: {{ ec2_region }}
-    cidr_block: {{ ec2_subnet }}
+    region: "{{ ec2_region }}"
+    cidr_block: "{{ ec2_subnet }}"
     subnets:
-      - cidr: {{ ec2_subnet }}
+      - cidr: "{{ ec2_subnet }}"
     route_tables:
       - subnets: 
-          - {{ ec2_subnet }}
+          - "{{ ec2_subnet }}"
         routes:
           - dest: 0.0.0.0/0
             gw: igw
@@ -24,21 +24,21 @@
     instance_tags: { role: "master", environment: "production" }
     count_tag: { role: "master"}
     exact_count: 1
-    image: {{ ec2_ami_id }}
-    instance_type: {{ ec2_instance_type }}
-    key_name: {{ ec2_ssh_key_name }}
-    private_ip: {{ postgresql_master_ip }}
-    region: {{ ec2_region }}
+    image: "{{ ec2_ami_id }}"
+    instance_type: "{{ ec2_instance_type }}"
+    key_name: "{{ ec2_ssh_key_name }}"
+    private_ip: "{{ postgresql_master_ip }}"
+    region: "{{ ec2_region }}"
     termination_protection: yes
     volumes:
       - device_name: /dev/sdb
-        volume_size: {{ ec2_system_volume_size }}
+        volume_size: "{{ ec2_system_volume_size }}"
         delete_on_termination: true
       - device_name: /dev/sdc
         volume_type: gp2
-        volume_size: {{ ec2_data_volume_size }}
+        volume_size: "{{ ec2_data_volume_size }}"
         delete_on_termination: false
-    vpc_subnet_id: {{ item.0.subnets[0].id }}
+    vpc_subnet_id: "{{ item.0.subnets[0].id }}"
     wait: yes
   with_items: vpc.results
 
@@ -49,21 +49,21 @@
     instance_tags: { role: "standby", environment: "production" }
     count_tag: { role: "standby"}
     exact_count: 1
-    image: {{ ec2_ami_id }}
-    instance_type: {{ ec2_instance_type }}
-    key_name: {{ ec2_ssh_key_name }}
-    private_ip: {{ item.0 }}
-    region: {{ ec2_region }}
+    image: "{{ ec2_ami_id }}"
+    instance_type: "{{ ec2_instance_type }}"
+    key_name: "{{ ec2_ssh_key_name }}"
+    private_ip: "{{ item.0 }}"
+    region: "{{ ec2_region }}"
     termination_protection: yes
     volumes:
       - device_name: /dev/sdb
-        volume_size: {{ ec2_system_volume_size }}
+        volume_size: "{{ ec2_system_volume_size }}"
         delete_on_termination: true
       - device_name: /dev/sdc
         volume_type: gp2
-        volume_size: {{ ec2_data_volume_size }}
+        volume_size: "{{ ec2_data_volume_size }}"
         delete_on_termination: false
-    vpc_subnet_id: {{ item.1.subnets[0].id  }}
+    vpc_subnet_id: "{{ item.1.subnets[0].id }}"
     wait: yes
   with_nested:
     - postgresql_standby_ips

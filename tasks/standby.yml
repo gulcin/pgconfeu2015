@@ -9,7 +9,7 @@
 - name: Ensure the pg_hba.conf file is configured
   template:
     src: pg_hba.conf.j2
-    dest: '/etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf'
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf"
     owner: postgres
     group: postgres
     mode: 0640
@@ -18,7 +18,7 @@
 - name: Ensure the recovery.conf file is configured
   template:
     src: recovery.conf.j2
-    dest: '/etc/postgresql/{{ postgresql_version }}/main/recovery.conf'
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/recovery.conf"
     owner: postgres
     group: postgres
     mode: 0640
