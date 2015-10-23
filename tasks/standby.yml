@@ -1,7 +1,7 @@
 - name: Ensure .pgpass is ready
   template:
     src: pgpass.j2
-    dest: '/home/postgres/.pgpass'
+    dest: '/var/lib/postgresql/.pgpass'
     owner: postgres
     group: postgres
     mode: 0640
