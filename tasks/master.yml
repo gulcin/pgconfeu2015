@@ -32,7 +32,7 @@
   postgresql_ext:
     state: present
     name: "{{ item }}"
-    db: "{{ postgresql_database }}"
+    db: "{{ postgresql_database_name }}"
   with_items: postgresql_extensions
 
 - name: Ensure roles are associated with the database
