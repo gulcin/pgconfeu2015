@@ -44,5 +44,3 @@
     role: {{ item.name }}
   with_items: postgresql_users
 
-# TODO: Ensure the database dump file is imported
-
