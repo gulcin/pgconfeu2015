@@ -37,7 +37,7 @@
   apt: name=python-psycopg2 state=latest
 
 - name: Ensure PostgreSQL contrib package is present, if requested
-  apt: name="postgresql-{{ postgresql_version }}-contrib" state=latest 
+  apt: name="postgresql-contrib-{{ postgresql_version }}" state=latest
   when: postgresql_contrib # because when expects variables 
 
 - name: Ensure PostgreSQL configuration is as requested
