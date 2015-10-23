@@ -1,5 +1,6 @@
 
-# TODO: Format the data volume, if necessary
+- name: Ensure the filesystem of the data volume is ext4
+  filesystem: fstype=ext4 dev=/dev/xvdc1
 
 - name: Ensure the data folder is present
   file: path=/var/lib/postgresql/{{ postgresql_version }}/data state=present
