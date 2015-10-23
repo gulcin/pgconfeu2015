@@ -26,7 +26,13 @@
   apt: name=postgresql-{{ postgresql_version }}-contrib state=latest 
   when: postgresql_contrib # because when expects variables 
 
-# TODO: Ensure PostgreSQL configuration is as requested
+- name: Ensure PostgreSQL configuration is as requested
+  lineinfile:
+    state: present
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf"
+    regexp: "{{ item.find }}"
+    line: "{{ item.replace }}"
+  with_items: postgresql_conf_statements
 
 - name: Ensure the PostgreSQL service is running
   service: name=postgresql state=started  
