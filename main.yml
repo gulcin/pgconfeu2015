@@ -7,7 +7,7 @@
     - 'defaults/aws.yml'
   gather_facts: yes
   tasks:
-    - include: 'tasks/infrastructure.yml'
+    - include: 'tasks/provision.yml'
 
 - name: Ensure all required PostgreSQL dependencies ready
   hosts: all
