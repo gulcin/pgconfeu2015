@@ -23,7 +23,7 @@
 - name: Ensure the master PostgreSQL server is ready
   hosts: master
   sudo: yes
-  sudo_user: root
+  sudo_user: postgres
   vars_files:
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
@@ -34,7 +34,7 @@
 - name: Ensure all standby servers are ready
   hosts: standbys
   sudo: yes
-  sudo_user: root
+  sudo_user: postgres
   vars_files:
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
