@@ -5,7 +5,7 @@
   vars_files: # load default variables from YAML files below
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: no # temporary
+  gather_facts: yes
   tasks:
     - include: 'tasks/infrastructure.yml'
 
@@ -16,7 +16,7 @@
   vars_files:
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: no # temporary
+  gather_facts: yes
   tasks:
     - include: 'tasks/postgresql.yml'
 
@@ -27,7 +27,7 @@
   vars_files:
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: no # temporary
+  gather_facts: yes
   tasks: 
     - include: 'tasks/master.yml'
 
@@ -38,7 +38,7 @@
   vars_files:
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: no # temporary
+  gather_facts: yes
   tasks:
     - include: 'tasks/standby.yml'
 
