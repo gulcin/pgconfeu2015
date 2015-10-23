@@ -33,6 +33,7 @@
     regexp: "{{ item.find }}"
     line: "{{ item.replace }}"
   with_items: postgresql_conf_statements
+  register: postgresql_conf
 
 - name: Ensure the PostgreSQL service is running
   service: name=postgresql state=started  
