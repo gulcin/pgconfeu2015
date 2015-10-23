@@ -9,11 +9,17 @@
 - name: Ensure the filesystem of the data volume is ext4
   filesystem: fstype=ext4 dev=/dev/xvdc1
 
-- name: Ensure the data folder is present
-  file: path="/var/lib/postgresql/{{ postgresql_version }}/data" state=present
+- name: Ensure the data folder has right ownership
+  file: path="/var/lib/postgresql" state=directory owner=postgres group=postgres
+
+- name: Ensure the data folder for current version is present
+  file: path="/var/lib/postgresql/{{ postgresql_version }}" state=directory
 
 - name: Ensure the PostgreSQL data volume is mounted
-  mount: src=/dev/xvdc1 name="/var/lib/postgresql/{{ postgresql_version }}/data" state=present
+  mount: src=/dev/xvdc1 name="/var/lib/postgresql/{{ postgresql_version }}" fstype=ext4 state=mounted
+
+- name: Ensure the data folder for current version has right ownership
+  file: path="/var/lib/postgresql/{{ postgresql_version }}" state=directory owner=postgres group=postgres
 
 - name: Ensure the official PostgreSQL APT repository is present
   apt_repository: repo="deb http://apt.postgresql.org/pub/repos/apt/ {{ ec2_os_version }}-pgdg main" state=present
