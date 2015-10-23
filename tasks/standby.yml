@@ -1,11 +1,34 @@
-# TODO: Ensure the .pgpass file exists
+- name: Ensure .pgpass is ready
+  template:
+    src: pgpass.j2
+    dest: '/home/postgres/.pgpass'
+    owner: postgres
+    group: postgres
+    mode: 0640
 
-# TODO: Ensure the .pgpass has the right permissions
+- name: Ensure the pg_hba.conf file is configured
+  template:
+    src: pg_hba.conf.j2
+    dest: '/etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf'
+    owner: postgres
+    group: postgres
+    mode: 0640
+  register: standby_pghba_conf
 
-# TODO: Ensure the pg_hba.conf file is configured
+- name: Ensure the recovery.conf file is configured
+  template:
+    src: recovery.conf.j2
+    dest: '/etc/postgresql/{{ postgresql_version }}/main/recovery.conf'
+    owner: postgres
+    group: postgres
+    mode: 0640
 
-# TODO: Ensure the recovery.conf file is configured
+- name: Restart PostgreSQL if necessary
+  service: name=postgresql state=restarted
+  when: postgresql_conf.changed
 
-# TODO: If the standby server was configured for the first time, ensure the PostreSQL service is restarted
+- name: Reload PostgreSQL if necessary
+  service: name=postgresql state=reloaded
+  when: standby_pghba_conf.changed
 
-# TODO: Verify streaming replication works as exptected: wal_file_location, replication func, write-read test
+# Verify streaming replication works as exptected: wal_file_location, replication func, write-read test
