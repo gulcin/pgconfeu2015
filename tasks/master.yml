@@ -1,6 +1,17 @@
-# TODO: Ensure PostgreSQL users are present
+- name: Ensure PostgreSQL users are present
+  postgresql_user:
+    state: present
+    name: {{ item.name }}
+    password: {{ item.password }}
+    role_attr_flags: {{ item.roles }}
+  with_items: postgresql_users
 
-# TODO: Ensure replication role is present
+- name: Ensure replication role is present
+  postgresql_user:
+    state: present
+    name: {{ postgresql_replication_user.name }}
+    password: {{ postgresql_replication_user.password }}
+    role_attr_flags: {{ postgresql_replication_user.roles }}
 
 # TODO: Ensure streaming replication configuration is ready
 
