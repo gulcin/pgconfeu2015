@@ -21,6 +21,7 @@
     owner: postgres
     group: postgres
     mode: 0640
+  register: master_pghba_conf
 
 - name: Ensure the database is present
   postgresql_db:
@@ -43,4 +44,12 @@
     objs: public
     role: {{ item.name }}
   with_items: postgresql_users
+
+- name: Restart PostgreSQL if necessary
+  service: name=postgresql state=restarted
+  when: postgresql_conf.changed
+
+- name: Reload PostgreSQL if necessary
+  service: name=postgresql state=reloaded
+  when: master_pghba_conf.changed
 
