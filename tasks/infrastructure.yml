@@ -67,6 +67,8 @@
     assign_public_ip: yes # our machines should access internet
     instance_tags: { Name: "pg-standby {{ item }}", environment: "production" }
     exact_count: 1
+    count_tag:
+      Name: "pg-standby {{ item }}"
     image: "{{ ec2_ami_id }}"
     instance_type: "{{ ec2_instance_type }}"
     group_id: "{{ security_group.group_id }}"
