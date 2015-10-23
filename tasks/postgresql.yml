@@ -1,3 +1,7 @@
+#
+# Manage the PostgreSQL data folder
+#
+
 - name: Check if the data volume partition exists
   stat: path=/dev/xvdc1
   register: data_volume_partition
@@ -6,7 +10,7 @@
   command: bash -c 'echo -e "n \n p \n \n \n \n w \n q \n" | fdisk /dev/xvdc'
   when: not data_volume_partition.stat.exists is defined or not data_volume_partition.stat.exists
 
-- name: Ensure the filesystem of the data volume is ext4
+- name: Ensure the filesystem of the data volume partition is ext4
   filesystem: fstype=ext4 dev=/dev/xvdc1
 
 - name: Ensure the data folder has right ownership
@@ -21,6 +25,10 @@
 - name: Ensure the data folder for current version has right ownership
   file: path="/var/lib/postgresql/{{ postgresql_version }}" state=directory owner=postgres group=postgres
 
+#
+# Configure the system for PostgreSQL packages
+#
+
 - name: Ensure the PostgreSQL Global Developmet Group APT repository is enabled
   apt_repository: repo="deb http://apt.postgresql.org/pub/repos/apt/ {{ ec2_os_version }}-pgdg main" state=present
 
@@ -29,6 +37,10 @@
 
 - name: Update the package list # apt-get update
   apt: update_cache=yes
+
+#
+# Manage PostgreSQL packages
+#
 
 - name: Ensure PostgreSQL is present
   apt: name="postgresql-{{ postgresql_version }}" state=latest
