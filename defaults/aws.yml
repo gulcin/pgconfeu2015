@@ -16,6 +16,6 @@ ec2_ssh_user: ubuntu
 ec2_ssh_key: ~/.ssh/id_rsa.pub
 ec2_ssh_key_name: postgresql-key
 
-# Volume sizes (GB)
+# PostgreSQL data volume size (GB)
 ec2_data_volume_size: 50
 
