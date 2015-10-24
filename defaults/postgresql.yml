@@ -33,7 +33,7 @@ postgresql_users:
 postgresql_conf_statements:
  - { find: "^#?listen_addresses = .*$", replace: "listen_addresses = '*'" }
  - { find: "^#?wal_level = .*$", replace: "wal_level = {{'hot_standby'}}" }
- - { find: "^#?max_wal_senders = .*$", replace: "max_wal_senders = {{ 3 }}" }
+ - { find: "^#?max_wal_senders = .*$", replace: "max_wal_senders = {{ 5 }}" }
  - { find: "^#?wal_keep_segments = .*$", replace: "wal_keep_segments = {{ 256 }}" }
  - { find: "^#?hot_standby = .*$", replace: "hot_standby = {{ 'on' }}" }
 
