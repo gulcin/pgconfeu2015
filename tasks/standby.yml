@@ -18,6 +18,22 @@
     mode: 0640
   register: standby_pghba_conf
 
+- name: Check if the standby is already configured by checking if recovery.conf is present
+  stat: path="/var/lib/postgresql/{{ postgresql_version }}/main/recovery.conf"
+  register: recovery_conf
+
+- name: Stop PostgreSQL if necessary
+  service: name=postgresql state=stopped
+  when: not recovery_conf.stat.exists is defined or not recovery_conf.stat.exists
+
+- name: Ensure the data directory is empty
+  file: path="/var/lib/postgresql/{{ postgresql_version }}/main" state=absent
+  when: not recovery_conf.stat.exists is defined or not recovery_conf.stat.exists
+
+- name: Ensure the base backup is retrieved
+  command: pg_basebackup -c fast -X stream -h "{{ postgresql_master_ip }}" -D "/var/lib/postgresql/{{ postgresql_version }}/main" -U "{{ postgresql_replication_user.name }}"
+  when: not recovery_conf.stat.exists is defined or not recovery_conf.stat.exists
+
 - name: Ensure the recovery.conf file is configured
   template:
     src: recovery.conf.j2
