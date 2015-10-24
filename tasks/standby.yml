@@ -6,6 +6,9 @@
     group: postgres
     mode: 0640
 
+- name: Ensure .pgpass has right permissions
+  file: path=/var/lib/postgresql/.pgpass state=file mode=0600
+
 - name: Ensure the pg_hba.conf file is configured
   template:
     src: pg_hba.conf.j2
