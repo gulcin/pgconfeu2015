@@ -83,3 +83,10 @@
     wait: yes
   with_items: postgresql_standby_ips
 
+- name: Wait for SSH (master) to become ready
+  wait_for: host="{{ postgresql_master_ip }}" port=22 timeout=320 state=started
+
+- name: Wait for SSH (standby) to become ready
+  wait_for: host="{{ item }}" port=22 timeout=320 state=started
+  with_items: postgresql_standby_ips
+
