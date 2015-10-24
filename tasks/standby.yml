@@ -21,7 +21,7 @@
 - name: Ensure the recovery.conf file is configured
   template:
     src: recovery.conf.j2
-    dest: "/etc/postgresql/{{ postgresql_version }}/main/recovery.conf"
+    dest: "/var/lib/postgresql/{{ postgresql_version }}/main/recovery.conf"
     owner: postgres
     group: postgres
     mode: 0640
