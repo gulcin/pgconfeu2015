@@ -13,17 +13,11 @@
 - name: Ensure the filesystem of the data volume partition is ext4
   filesystem: fstype=ext4 dev=/dev/xvdc1
 
-- name: Ensure the data folder has right ownership
-  file: path="/var/lib/postgresql" state=directory owner=postgres group=postgres
-
 - name: Ensure the data folder for current version is present
-  file: path="/var/lib/postgresql/{{ postgresql_version }}" state=directory
+  file: path="/var/lib/postgresql/{{ postgresql_version }}" state=directory mode=0777
 
 - name: Ensure the PostgreSQL data volume is mounted
   mount: src=/dev/xvdc1 name="/var/lib/postgresql/{{ postgresql_version }}" fstype=ext4 state=mounted
-
-- name: Ensure the data folder for current version has right ownership
-  file: path="/var/lib/postgresql/{{ postgresql_version }}" state=directory owner=postgres group=postgres
 
 #
 # Configure the system for PostgreSQL packages
@@ -63,4 +57,10 @@
 
 - name: Ensure the PostgreSQL service is running
   service: name=postgresql state=started  
+
+- name: Ensure the data folder has right ownership
+  file: path="/var/lib/postgresql" state=directory owner=postgres group=postgres
+
+- name: Ensure the data folder for current version has right ownership
+  file: path="/var/lib/postgresql/{{ postgresql_version }}" state=directory owner=postgres group=postgres
 
