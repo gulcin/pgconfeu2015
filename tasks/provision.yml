@@ -61,6 +61,7 @@
         delete_on_termination: false
     vpc_subnet_id: "{{ vpc.subnets[0].id }}"
     wait: yes
+  register: ec2_master
 
 - name: Ensure standby EC2 instances & volumes are present
   ec2:
@@ -82,11 +83,26 @@
     vpc_subnet_id: "{{ vpc.subnets[0].id }}"
     wait: yes
   with_items: postgresql_standby_ips
+  register: ec2_standbys
 
-- name: Wait for SSH (master) to become ready
-  wait_for: host="{{ postgresql_master_ip }}" port=22 timeout=320 state=started
+- name: Ensure master host has the updated IP address
+  add_host:
+    name: "postgresql-master"
+    groups: "postgresql-master"
+    ansible_ssh_host: "{{ ec2_master.tagged_instances[0].public_ip }}"
+    ansible_ssh_user: "{{ ec2_ssh_user }}"
 
-- name: Wait for SSH (standby) to become ready
-  wait_for: host="{{ item }}" port=22 timeout=320 state=started
-  with_items: postgresql_standby_ips
+- name: Ensure standby hosts have updated IP addresses
+  add_host:
+    name: "postgresql-standby-{{ item.0 + 1 }}"
+    groups: "postgresql-standbys"
+    ansible_ssh_host: "{{ item.1.tagged_instances[0].public_ip }}"
+    ansible_ssh_user: "{{ ec2_ssh_user }}"
+  with_indexed_items: ec2_standbys.results
+
+- name: Wait for SSH to become ready
+  wait_for: host="{{ item.tagged_instances[0].public_ip }}" port=22 timeout=320 state=started
+  with_flattened:
+    - [ ec2_master ]
+    - ec2_standbys.results
 

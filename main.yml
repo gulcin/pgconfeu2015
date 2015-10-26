@@ -5,40 +5,36 @@
   vars_files: # load default variables from YAML files below
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: yes
   tasks:
     - include: 'tasks/provision.yml'
 
 - name: Ensure all required PostgreSQL dependencies ready
-  hosts: all
+  hosts: postgresql-all
   sudo: yes
   sudo_user: root
   vars_files:
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: yes
   tasks:
     - include: 'tasks/postgresql.yml'
 
 - name: Ensure the master PostgreSQL server is ready
-  hosts: master
+  hosts: postgresql-master
   sudo: yes
   sudo_user: postgres
   vars_files:
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: yes
   tasks: 
     - include: 'tasks/master.yml'
 
 - name: Ensure all standby servers are ready
-  hosts: standbys
+  hosts: postgresql-standbys
   sudo: yes
   sudo_user: postgres
   vars_files:
     - 'defaults/postgresql.yml'
     - 'defaults/aws.yml'
-  gather_facts: yes
   tasks:
     - include: 'tasks/standby.yml'
 
