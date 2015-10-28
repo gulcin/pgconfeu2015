@@ -107,7 +107,7 @@ To see created instances with their public IP addresses, you can issue the follo
 ```bash
 aws ec2 describe-instances --no-paginate --output=text \
     --filters 'Name=instance-state-name,Values=running' \
-    --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value, PublicIpAddress]'\
+    --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value, PublicIpAddress]' \
     | sed '$!N;s/\n/ /' | grep pg | sort -k2
 ```
 
