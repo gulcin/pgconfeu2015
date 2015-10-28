@@ -131,25 +131,25 @@ You can also check if the replication is working correctly with a scenario like 
       sudo su - postgres
       ```
 
-      * Connect to the `vienna` database
+    * Connect to the `vienna` database
 
-        ```bash
-        psql vienna
+      ```bash
+      psql vienna
+      ```
+
+      * Create a test table
+
+        ```sql
+        CREATE TABLE test (title text);
         ```
 
-        * Create a test table
+      * Insert some data to this table
 
-          ```sql
-          CREATE TABLE test (title text);
-          ```
-
-        * Insert some data to this table
-
-          ```sql
-          INSERT INTO test VALUES ('Test row 1');
-          INSERT INTO test VALUES ('Test row 2');
-          INSERT INTO test VALUES ('Test row 3');
-          ```
+        ```sql
+        INSERT INTO test VALUES ('Test row 1');
+        INSERT INTO test VALUES ('Test row 2');
+        INSERT INTO test VALUES ('Test row 3');
+        ```
 
   * Connect to standby instances
 
@@ -169,23 +169,23 @@ You can also check if the replication is working correctly with a scenario like 
       sudo su - postgres
       ```
 
-      * Connect to the `vienna` database
+    * Connect to the `vienna` database
 
-        ```bash
-        psql vienna
+      ```bash
+      psql vienna
+      ```
+
+      * Check the recovery status:
+
+        ```sql
+        SELECT is_in_recovery();
         ```
 
-        * Check the recovery status:
+      * Select some data from the test table
 
-          ```sql
-          SELECT is_in_recovery();
-          ```
-
-        * Select some data from the test table
-
-          ```sql
-          SELECT * FROM test;
-          ```
+        ```sql
+        SELECT * FROM test;
+        ```
 
 ---
 
