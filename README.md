@@ -36,6 +36,8 @@ easy_install pip
 pip install ansible boto
 ```
 
+See this [in action](https://asciinema.org/a/dusomo0z73ypofj6h8iv8j8hd).
+
 ### Mac OS X Installation
 
 ```shell
@@ -80,6 +82,8 @@ You can run this playbook simply by using the `ansible-playbook` command.
 ansible-playbook -i hosts.ini main.yml
 ```
 
+See this [in action](https://asciinema.org/a/b1xjvmxvnmhv8ooljc1kogzg9)
+
 ---
 
 ## Verification
@@ -111,7 +115,7 @@ aws ec2 describe-instances --no-paginate --output=text \
     | sed '$!N;s/\n/ /' | grep pg | sort -k2
 ```
 
-You can also check if the replication is working correctly with a scenario like this:
+You can also check if the replication is working correctly with a scenario [like this](https://asciinema.org/a/0jdsb9e2pxlf863ppg5ii2otw):
 
   * Connect to the master instance
 
