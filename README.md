@@ -6,7 +6,7 @@ This [Ansible playbook](http://docs.ansible.com/ansible/playbooks.html):
 
   * Provisions [Amazon VPC](https://aws.amazon.com/vpc/) and [Amazon EC2](https://aws.amazon.com/ec2/) instances
   * Installs latest [PostgreSQL](http://postgresql.org) packages
-  * Configures a streaming replication with 1 master and 2 standbys
+  * Configures a [streaming replication](http://www.postgresql.org/docs/9.4/static/warm-standby.html#STREAMING-REPLICATION) with 1 master and 2 standbys
 
 ---
 
