@@ -20,6 +20,7 @@ This [Ansible playbook](http://docs.ansible.com/ansible/playbooks.html):
   * [Verification](#verification)
     * [Prereqiusites](#prereqiusites)
     * [Verify](#verify)
+  * [Videos](#videos)
 
 ---
 
@@ -185,3 +186,14 @@ You can also check if the replication is working correctly with a scenario like 
           ```sql
           SELECT * FROM test;
           ```
+
+---
+
+## Videos
+
+You can find [Asciinema](http://asciinema.org) videos shown in my [presentation](http://slides.com/apatheticmagpie/managing-postgres-with-ansible) here
+
+  * [Install Ansible on Debian-based Systems](https://asciinema.org/a/dusomo0z73ypofj6h8iv8j8hd)
+  * [Playbook: First Run](https://asciinema.org/a/b1xjvmxvnmhv8ooljc1kogzg9)
+  * [Playbook: Verify Setup](https://asciinema.org/a/0jdsb9e2pxlf863ppg5ii2otw)
+  * [Playbook: New Standby](https://asciinema.org/a/5v7yvcboeh8ih7cya66pf887k)
